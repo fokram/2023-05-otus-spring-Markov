@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="questionAndAnswersDao" class="ru.otus.spring.dao.QuestionAndAnswersDaoImpl">
+        <property name="delimiter" value=";"/>
+    </bean>
+    <bean id="printService" class="ru.otus.spring.service.impl.PrintServiceImpl"/>
+    <bean id="quizService" class="ru.otus.spring.service.impl.QuizServiceImpl">
+        <property name="resourcePath" value="questions.csv"/>
+        <property name="questionAndAnswers" ref="questionAndAnswersDao"/>
+    </bean>
+
+</beans>
