@@ -3,9 +3,9 @@ package ru.otus.spring.model;
 public class Pair {
     private final AnswerEntity answers;
 
-    private final QuestionEntity question;
+    private final Question question;
 
-    public Pair(AnswerEntity answers, QuestionEntity question) {
+    public Pair(AnswerEntity answers, Question question) {
         this.answers = answers;
         this.question = question;
     }
@@ -14,7 +14,7 @@ public class Pair {
         return this.answers;
     }
 
-    public QuestionEntity getQuestion() {
+    public Question getQuestion() {
         return this.question;
     }
 }

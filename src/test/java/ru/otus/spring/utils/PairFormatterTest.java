@@ -3,7 +3,7 @@ package ru.otus.spring.utils;
 import org.junit.jupiter.api.Test;
 import ru.otus.spring.model.AnswerEntity;
 import ru.otus.spring.model.Pair;
-import ru.otus.spring.model.QuestionEntity;
+import ru.otus.spring.model.Question;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ class PairFormatterTest {
     @Test
     void getPair() {
         AnswerEntity expectedAnswers = new AnswerEntity(List.of("ans1", "ans2"));
-        QuestionEntity expectedQuestion = new QuestionEntity("question123");
+        Question expectedQuestion = new Question("question123");
         Pair pair = PairFormatter.getPair("question123;ans1;ans2", ";");
 
         assertEquals(expectedAnswers, pair.getAnswers());

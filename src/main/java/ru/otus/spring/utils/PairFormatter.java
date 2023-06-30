@@ -2,7 +2,7 @@ package ru.otus.spring.utils;
 
 import ru.otus.spring.model.AnswerEntity;
 import ru.otus.spring.model.Pair;
-import ru.otus.spring.model.QuestionEntity;
+import ru.otus.spring.model.Question;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,13 +10,13 @@ import java.util.List;
 public class PairFormatter {
 
     public static Pair getPair(String line, String delimeter) {
-        QuestionEntity question;
+        Question question;
         AnswerEntity answer;
 
         List<String> splittedStringLine = Arrays.asList(line.split(delimeter));
 
         if ( !splittedStringLine.isEmpty() ) {
-            question = new QuestionEntity(splittedStringLine.get(0));
+            question = new Question(splittedStringLine.get(0));
         } else {
             question = null;
         }
