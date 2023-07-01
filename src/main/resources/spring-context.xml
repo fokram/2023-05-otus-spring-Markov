@@ -4,13 +4,26 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="questionAndAnswersDao" class="ru.otus.spring.dao.QuestionAndAnswersDaoImpl">
-        <property name="delimiter" value=";"/>
+    <bean id="csvFormatter" class="ru.otus.spring.utils.CsvFormatter">
+        <constructor-arg name="delimeter" value=";"/>
     </bean>
-    <bean id="printService" class="ru.otus.spring.service.impl.PrintServiceImpl"/>
-    <bean id="quizService" class="ru.otus.spring.service.impl.QuizServiceImpl">
-        <property name="resourcePath" value="questions.csv"/>
-        <property name="questionAndAnswers" ref="questionAndAnswersDao"/>
+
+    <bean id="questionDao" class="ru.otus.spring.dao.QuestionDaoCsv">
+        <constructor-arg name="csvFormatter" ref="csvFormatter"/>
+        <constructor-arg name="resourcePath" value="questions.csv"/>
+    </bean>
+
+    <bean id="outputService" class="ru.otus.spring.service.OutputServiceImpl">
+        <constructor-arg name="outputStream" value="#{T(java.lang.System).out}"/>
+    </bean>
+
+    <bean id="quizService" class="ru.otus.spring.service.QuizServiceImpl">
+        <constructor-arg name="questionDao" ref="questionDao"/>
+    </bean>
+
+    <bean id="appRunner" class="ru.otus.spring.service.AppRunnerImpl">
+        <constructor-arg name="quizService" ref="quizService"/>
+        <constructor-arg name="outputService" ref="outputService"/>
     </bean>
 
 </beans>
