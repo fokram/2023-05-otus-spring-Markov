@@ -9,9 +9,12 @@ public class Question {
 
     private final List<Answer> answers;
 
-    public Question(String questionText, List<Answer> answers) {
+    private final String correctAnswerText;
+
+    public Question(String questionText, List<Answer> answers, String correctAnswerText) {
         this.questionText = questionText;
         this.answers = answers;
+        this.correctAnswerText = correctAnswerText;
     }
 
 
@@ -28,19 +31,23 @@ public class Question {
         if (this == o) {
             return true;
         }
-
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         Question question = (Question) o;
-
-        return Objects.equals(getQuestionText(), question.getQuestionText())
-                && Objects.equals(getAnswers(), question.getAnswers());
+        return Objects.equals(
+                getQuestionText(),
+                question.getQuestionText()
+        ) && Objects.equals(
+                getAnswers()
+                , question.getAnswers()
+        ) && Objects.equals(
+                correctAnswerText,
+                question.correctAnswerText);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getQuestionText(), getAnswers());
+        return Objects.hash(getQuestionText(), getAnswers(), correctAnswerText);
     }
 }

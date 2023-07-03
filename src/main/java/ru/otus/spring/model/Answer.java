@@ -5,11 +5,8 @@ import java.util.Objects;
 public class Answer {
     private final String answerText;
 
-    private final Boolean isCorrect;
-
-    public Answer(String answerText, Boolean isCorrect) {
+    public Answer(String answerText) {
         this.answerText = answerText;
-        this.isCorrect = isCorrect;
     }
 
     public String getAnswerText() {
@@ -28,11 +25,11 @@ public class Answer {
 
         Answer answer = (Answer) o;
 
-        return Objects.equals(getAnswerText(), answer.getAnswerText()) && Objects.equals(isCorrect, answer.isCorrect);
+        return Objects.equals(getAnswerText(), answer.getAnswerText());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAnswerText(), isCorrect);
+        return Objects.hash(getAnswerText());
     }
 }
