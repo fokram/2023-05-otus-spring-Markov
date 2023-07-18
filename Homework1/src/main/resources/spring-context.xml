@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="csvFormatter" class="ru.otus.spring.utils.CsvFormatter">
+        <constructor-arg name="delimeter" value=";"/>
+    </bean>
+
+    <bean id="questionDao" class="ru.otus.spring.dao.QuestionDaoCsv">
+        <constructor-arg name="csvFormatter" ref="csvFormatter"/>
+        <constructor-arg name="resourcePath" value="questions.csv"/>
+    </bean>
+
+    <bean id="outputService" class="ru.otus.spring.service.OutputServiceImpl">
+        <constructor-arg name="outputStream" value="#{T(java.lang.System).out}"/>
+    </bean>
+
+    <bean id="quizService" class="ru.otus.spring.service.QuizServiceImpl">
+        <constructor-arg name="questionDao" ref="questionDao"/>
+    </bean>
+
+    <bean id="appRunner" class="ru.otus.spring.service.AppRunnerImpl">
+        <constructor-arg name="quizService" ref="quizService"/>
+        <constructor-arg name="outputService" ref="outputService"/>
+    </bean>
+
+</beans>
