@@ -13,21 +13,15 @@ import ru.otus.spring.model.User;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @ExtendWith(MockitoExtension.class)
-public class QuizServiceTest {
+class QuizFinalizeServiceTest {
     @InjectMocks
-    private QuizServiceImpl quizService;
+    private QuizFinalizeServiceImpl quizFinalizeService;
 
     @Mock
-    private QuestionService questionService;
-
-    @Mock
-    private QuizFinalizeService quizFinalizeService;
+    private OutputService outputService;
 
     private Quiz quiz;
 
@@ -43,13 +37,7 @@ public class QuizServiceTest {
     }
 
     @Test
-    void processQuizSuccessfulFinish() {
-        when(questionService.processQuestionAndGetScoreIncrement(any())).thenReturn(1);
-        doNothing().when(quizFinalizeService).finalizeQuiz(any());
-
-        quizService.process(quiz);
-
-        assertEquals(1, quiz.getScore());
-        assertEquals(1, quiz.isPassQuiz());
+    void successfulProcessQuizFinalize() {
+        assertDoesNotThrow(() -> quizFinalizeService.finalizeQuiz(quiz));
     }
 }

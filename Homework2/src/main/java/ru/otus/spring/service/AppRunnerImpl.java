@@ -1,9 +1,13 @@
 package ru.otus.spring.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.otus.spring.config.properties.ApplicationProperties;
 import ru.otus.spring.dao.QuestionDao;
+import ru.otus.spring.model.Question;
 import ru.otus.spring.model.Quiz;
+import ru.otus.spring.model.User;
+
+import java.util.List;
 
 @Service
 public class AppRunnerImpl implements AppRunner {
@@ -11,23 +15,28 @@ public class AppRunnerImpl implements AppRunner {
 
     private final QuizService quizService;
 
-    private final int passScore;
+    private final UserService userService;
+
+    @Value("${application.config.passScore}")
+    private int passScore;
 
     public AppRunnerImpl(
             QuestionDao questionDao,
             QuizService quizService,
-            ApplicationProperties applicationProperties) {
+            UserService userService) {
         this.questionDao = questionDao;
         this.quizService = quizService;
-        this.passScore = applicationProperties.getPassScore();
+        this.userService = userService;
     }
 
     public void run() {
-        Quiz quiz = new Quiz(quizService.processUser(), passScore, questionDao.getQuestions());
+        User user = userService.processAndGetNewUser();
+
+        List<Question> questions = questionDao.getQuestions();
+
+        Quiz quiz = new Quiz(user, passScore, questions);
 
         quizService.process(quiz);
-
-        quizService.finalizeQuiz(quiz);
     }
 
 

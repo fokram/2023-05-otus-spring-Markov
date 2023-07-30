@@ -1,26 +1,31 @@
 package ru.otus.spring.service;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import ru.otus.spring.Main;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import ru.otus.spring.dao.QuestionDaoCsv;
+import ru.otus.spring.model.User;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = Main.class)
+@ExtendWith(MockitoExtension.class)
 public class AppRunnerTest {
-
-    @Autowired
-    IOService ioService;
-    @Autowired
-    private AppRunner appRunner;
+    private final User user = new User(" ", " ");
+    @InjectMocks
+    private AppRunnerImpl appRunner;
+    @Mock
+    private QuestionDaoCsv questionDao;
+    @Mock
+    private QuizServiceImpl quizService;
+    @Mock
+    private UserService userService;
 
     @Test
     void applicationProcessedSuccessful() {
-        when(ioService.readStringWithPrompt(any())).thenReturn("");
-        when(ioService.readIntWithPrompt(any())).thenReturn(0);
+        when(userService.processAndGetNewUser()).thenReturn(user);
 
         assertDoesNotThrow(appRunner::run);
     }

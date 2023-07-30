@@ -1,7 +1,7 @@
 package ru.otus.spring.dao;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-import ru.otus.spring.config.properties.ApplicationProperties;
 import ru.otus.spring.exception.QuestionReadException;
 import ru.otus.spring.model.Question;
 import ru.otus.spring.utils.QuestionParser;
@@ -20,9 +20,11 @@ public class QuestionDaoCsv implements QuestionDao {
 
     private final String delimiter;
 
-    public QuestionDaoCsv(ApplicationProperties applicationProperties) {
-        this.fileName = applicationProperties.getFileName();
-        this.delimiter = applicationProperties.getDelimiter();
+    public QuestionDaoCsv(
+            @Value("${application.config.fileName}") String fileName,
+            @Value("${application.config.delimiter}") String delimiter) {
+        this.fileName = fileName;
+        this.delimiter = delimiter;
     }
 
     @Override
