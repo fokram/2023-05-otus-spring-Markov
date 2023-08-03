@@ -1,21 +1,20 @@
 package ru.otus.spring.dao;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
+import ru.otus.spring.config.DaoProperties;
 import ru.otus.spring.model.Question;
+import ru.otus.spring.utils.QuestionParser;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@ExtendWith(MockitoExtension.class)
 class QuestionDaoCsvTest {
-    private final String fileName = "questions.csv";
+    private final QuestionParser questionParser = new QuestionParser();
 
-    private final String delimiter = ";";
+    private final DaoProperties daoProperties = new DaoProperties("questions.csv", ";");
 
-    private final QuestionDaoCsv questionDao = new QuestionDaoCsv(fileName, delimiter);
+    private final QuestionDaoCsv questionDao = new QuestionDaoCsv(questionParser, daoProperties);
 
     @Test
     void successfulGetQuestionList() {

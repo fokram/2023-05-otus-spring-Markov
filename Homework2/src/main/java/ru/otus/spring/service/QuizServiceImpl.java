@@ -16,12 +16,10 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public void process(Quiz quiz) {
-        quiz.getQuestions()
-                .forEach(question -> {
-                            int increment = questionService.processQuestionAndGetScoreIncrement(question);
-                            quiz.incScore(increment);
-                        }
-                );
+        for (var question : quiz.getQuestions()) {
+            int increment = questionService.processQuestionAndGetScoreIncrement(question);
+            quiz.incScore(increment);
+        }
 
         quizFinalizeService.finalizeQuiz(quiz);
     }

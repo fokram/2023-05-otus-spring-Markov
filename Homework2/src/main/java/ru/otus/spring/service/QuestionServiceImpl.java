@@ -27,8 +27,10 @@ public class QuestionServiceImpl implements QuestionService {
     private int getScoreIncrement(Question question) {
         while (true) {
             try {
+                var selectedAnswerNumber = ioService.readIntWithPrompt("Choose number: ");
+
                 return question.getProvidedAnswers()
-                        .get(ioService.readIntWithPrompt("Choose number: "))
+                        .get(selectedAnswerNumber)
                         .isCorrectAnswer();
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 ioService.outputString(

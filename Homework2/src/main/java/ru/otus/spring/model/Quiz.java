@@ -11,9 +11,9 @@ public class Quiz {
 
     private final List<Question> questions;
 
-    public Quiz(User user, int passingScore, List<Question> questions) {
+    public Quiz(User user, int passScore, List<Question> questions) {
         this.user = user;
-        this.passingScore = passingScore;
+        this.passingScore = passScore;
         this.questions = questions;
     }
 

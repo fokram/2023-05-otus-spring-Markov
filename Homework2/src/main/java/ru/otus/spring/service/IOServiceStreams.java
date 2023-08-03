@@ -1,27 +1,18 @@
 package ru.otus.spring.service;
 
-import org.springframework.stereotype.Service;
-
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-@Service
 public class IOServiceStreams implements IOService {
     private final PrintStream output;
 
     private final Scanner input;
 
-    public IOServiceStreams() {
-        output = System.out;
-        input = new Scanner(System.in);
+    public IOServiceStreams(PrintStream outputStream, InputStream inputStream) {
+        output = outputStream;
+        input = new Scanner(inputStream);
     }
-
-//    не соображу как заинжектить System.out/System.in, подскажите плз
-
-//    public IOServiceStreams(PrintStream outputStream, InputStream inputStream) {
-//        output = outputStream;
-//        input = new Scanner(inputStream);
-//    }
 
     @Override
     public void outputString(String s) {

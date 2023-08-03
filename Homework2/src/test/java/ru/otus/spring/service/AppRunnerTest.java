@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import ru.otus.spring.config.AppProperties;
 import ru.otus.spring.dao.QuestionDaoCsv;
 import ru.otus.spring.model.User;
 
@@ -22,10 +23,13 @@ public class AppRunnerTest {
     private QuizServiceImpl quizService;
     @Mock
     private UserService userService;
+    @Mock
+    private AppProperties appProperties;
 
     @Test
     void applicationProcessedSuccessful() {
         when(userService.processAndGetNewUser()).thenReturn(user);
+        when(appProperties.getPassScore()).thenReturn(3);
 
         assertDoesNotThrow(appRunner::run);
     }
